@@ -1,0 +1,4 @@
+# Project exclude paths
+/out/
+/.idea/
+/JWD_task2.iml

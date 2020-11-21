@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN" strict="true">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss} [%t] %-5p %c - %m%n"/>
+        </Console>
+        <File name="FileAppender" filename="logs\app.log">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss} [%t] %-5p %c - %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.epam.jwd.logic" level="debug" additivity="true">
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -37,6 +37,13 @@ public class NonClosedFigureFactoryImpl implements NonClosedFigureFactory {
     }
 
     @Override
+    public Point createNewPoint(double x, double y) {
+        Point newPoint = new Point(x, y);
+        CACHE.add(newPoint);
+        return newPoint;
+    }
+
+    @Override
     public Line createLine(Point pointA, Point pointB) {
         for (NonClosedFigure figure : CACHE) {
             if (figure instanceof Line) {
@@ -46,6 +53,13 @@ public class NonClosedFigureFactoryImpl implements NonClosedFigureFactory {
                 }
             }
         }
+        Line newLine = new Line(pointA, pointB);
+        CACHE.add(newLine);
+        return newLine;
+    }
+
+    @Override
+    public Line createNewLine(Point pointA, Point pointB) {
         Line newLine = new Line(pointA, pointB);
         CACHE.add(newLine);
         return newLine;

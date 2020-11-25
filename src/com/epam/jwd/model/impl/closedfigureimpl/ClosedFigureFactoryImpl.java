@@ -24,7 +24,6 @@ public class ClosedFigureFactoryImpl implements ClosedFigureFactory {
         return instance;
     }
 
-
     @Override
     public Triangle createTriangle(Point pointA, Point pointB, Point pointC, TriangleStrategy closedFigurePropertiesStrategy) {
         for (ClosedFigure figure : CACHE) {
@@ -43,6 +42,13 @@ public class ClosedFigureFactoryImpl implements ClosedFigureFactory {
     }
 
     @Override
+    public Triangle createNewTriangle(Point pointA, Point pointB, Point pointC, TriangleStrategy closedFigurePropertiesStrategy) {
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC, closedFigurePropertiesStrategy);
+        CACHE.add(newTriangle);
+        return newTriangle;
+    }
+
+    @Override
     public Square createSquare(Point pointA, Point pointB, Point pointC, Point pointD, SquareStrategy closedFigurePropertiesStrategy) {
         for (ClosedFigure figure : CACHE) {
             if (figure instanceof Square) {
@@ -54,6 +60,13 @@ public class ClosedFigureFactoryImpl implements ClosedFigureFactory {
                 }
             }
         }
+        Square newSquare = new Square(pointA, pointB, pointC, pointD, closedFigurePropertiesStrategy);
+        CACHE.add(newSquare);
+        return newSquare;
+    }
+
+    @Override
+    public Square createNewSquare(Point pointA, Point pointB, Point pointC, Point pointD, SquareStrategy closedFigurePropertiesStrategy) {
         Square newSquare = new Square(pointA, pointB, pointC, pointD, closedFigurePropertiesStrategy);
         CACHE.add(newSquare);
         return newSquare;

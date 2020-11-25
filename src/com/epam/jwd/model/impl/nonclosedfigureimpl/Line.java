@@ -1,14 +1,14 @@
-package com.epam.jwd.model.children;
+package com.epam.jwd.model.impl.nonclosedfigureimpl;
 
-import com.epam.jwd.model.Figure;
+import com.epam.jwd.model.impl.NonClosedFigure;
 import java.util.Objects;
 
-public class Line extends Figure {
+public class Line extends NonClosedFigure {
 
     private Point pointA;
     private Point pointB;
 
-    public Line(Point pointA, Point pointB) {
+    Line(Point pointA, Point pointB) {
         this.pointA = pointA;
         this.pointB = pointB;
     }

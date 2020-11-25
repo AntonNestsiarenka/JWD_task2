@@ -1,6 +1,6 @@
 package com.epam.jwd.logic;
 
-import com.epam.jwd.model.children.Point;
+import com.epam.jwd.model.impl.nonclosedfigureimpl.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,15 +8,13 @@ public class PointLogic {
 
     private final static Logger LOGGER = LogManager.getLogger(PointLogic.class);
 
-    public double distanceBetweenPoints(Point point1, Point point2)
-    {
-        double deltaX = Math.abs(point1.getX() - point2.getX());
-        double deltaY = Math.abs(point1.getY() - point2.getY());
+    public double distanceBetweenPoints(Point point1, Point point2) {
+        double deltaX = point1.getX() - point2.getX();
+        double deltaY = point1.getY() - point2.getY();
         return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
     }
 
-    public void printInfo(Point[] points)
-    {
+    public void printInfo(Point[] points) {
         if (points.length != 0) {
             int i = 0;
             do {

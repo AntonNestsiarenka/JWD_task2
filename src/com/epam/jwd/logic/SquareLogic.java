@@ -1,21 +1,20 @@
 package com.epam.jwd.logic;
 
-import com.epam.jwd.model.children.Square;
+import com.epam.jwd.exception.InvalidFigureData;
+import com.epam.jwd.model.impl.closedfigureimpl.Square;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SquareLogic {
+public class SquareLogic extends ClosedFigureLogic<Square> {
 
     private final static Logger LOGGER = LogManager.getLogger(SquareLogic.class);
 
-    private PointLogic pointLogic;
-
     public SquareLogic(PointLogic pointLogic) {
-        this.pointLogic = pointLogic;
+        super(pointLogic);
     }
 
-    public boolean isCorrectFigure(Square square)
-    {
+    @Override
+    public boolean isCorrectFigure(Square square) {
         return !(square.getPointA().equals(square.getPointB()) ||
                 square.getPointA().equals(square.getPointC()) ||
                 square.getPointA().equals(square.getPointD()) ||
@@ -24,23 +23,38 @@ public class SquareLogic {
                 square.getPointC().equals(square.getPointD()));
     }
 
-    public boolean isSquareExist(Square square)
-    {
-        double lengthAB = pointLogic.distanceBetweenPoints(square.getPointA(), square.getPointB());
-        double lengthBC = pointLogic.distanceBetweenPoints(square.getPointB(), square.getPointC());
-        double lengthCD = pointLogic.distanceBetweenPoints(square.getPointC(), square.getPointD());
-        double lengthDA = pointLogic.distanceBetweenPoints(square.getPointD(), square.getPointA());
-        double diagonalAC = pointLogic.distanceBetweenPoints(square.getPointA(), square.getPointC());
-        double diagonalBD = pointLogic.distanceBetweenPoints(square.getPointB(), square.getPointD());
+    @Override
+    public boolean isFigureExist(Square square) {
+        double lengthAB = getPointLogic().distanceBetweenPoints(square.getPointA(), square.getPointB());
+        double lengthBC = getPointLogic().distanceBetweenPoints(square.getPointB(), square.getPointC());
+        double lengthCD = getPointLogic().distanceBetweenPoints(square.getPointC(), square.getPointD());
+        double lengthDA = getPointLogic().distanceBetweenPoints(square.getPointD(), square.getPointA());
+        double diagonalAC = getPointLogic().distanceBetweenPoints(square.getPointA(), square.getPointC());
+        double diagonalBD = getPointLogic().distanceBetweenPoints(square.getPointB(), square.getPointD());
         return lengthAB == lengthBC && lengthAB == lengthCD && lengthAB == lengthDA && diagonalAC == diagonalBD;
     }
 
-    public void printInfo(Square[] squares)
-    {
-        for (Square square : squares)
-        {
+    @Override
+    public double figureArea(Square closedFigure) throws InvalidFigureData {
+        if (!isCorrectFigure(closedFigure)) {
+            throw new InvalidFigureData("Invalid data of figure. All points must be different.");
+        }
+        if (!isFigureExist(closedFigure)) {
+            throw new InvalidFigureData(String.format("Invalid data of figure. Figure has not a %s.", closedFigure.getClass().getSimpleName()));
+        }
+        return closedFigure.getClosedFigurePropertiesStrategy().figureArea(closedFigure);
+    }
+
+    @Override
+    public double figurePerimeter(Square closedFigure) {
+        return closedFigure.getClosedFigurePropertiesStrategy().figurePerimeter(closedFigure);
+    }
+
+    @Override
+    public void printInfo(Square[] squares) {
+        for (Square square : squares) {
             if (isCorrectFigure(square)) {
-                if (isSquareExist(square)) {
+                if (isFigureExist(square)) {
                     LOGGER.info(square);
                 }
                 else {

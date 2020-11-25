@@ -1,18 +1,18 @@
-package com.epam.jwd.model.children;
+package com.epam.jwd.model.impl.nonclosedfigureimpl;
 
-import com.epam.jwd.model.Figure;
+import com.epam.jwd.model.impl.NonClosedFigure;
 import java.util.Objects;
 
-public class Point extends Figure {
+public class Point extends NonClosedFigure {
 
     private double x;
     private double y;
 
-    public Point() {
+    Point() {
 
     }
 
-    public Point(double x, double y) {
+    Point(double x, double y) {
         this.x = x;
         this.y = y;
     }

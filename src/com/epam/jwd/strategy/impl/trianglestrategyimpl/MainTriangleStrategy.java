@@ -3,7 +3,7 @@ package com.epam.jwd.strategy.impl.trianglestrategyimpl;
 import com.epam.jwd.model.impl.closedfigureimpl.Triangle;
 import com.epam.jwd.strategy.impl.TriangleStrategy;
 
-public class MainTriangleStrategy implements TriangleStrategy {
+public final class MainTriangleStrategy implements TriangleStrategy {
 
     private static MainTriangleStrategy instance;
 

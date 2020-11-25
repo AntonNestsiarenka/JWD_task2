@@ -3,19 +3,18 @@ package com.epam.jwd.strategy.impl.squarestrategyimpl;
 import com.epam.jwd.model.impl.closedfigureimpl.Square;
 import com.epam.jwd.strategy.impl.SquareStrategy;
 
-public class MainSquareStrategy implements SquareStrategy {
-
-    private static MainSquareStrategy instance;
+public final class MainSquareStrategy implements SquareStrategy {
 
     private MainSquareStrategy() {
 
     }
 
+    private static class MainSquareStrategySingleton {
+        private static final MainSquareStrategy instance = new MainSquareStrategy();
+    }
+
     public static MainSquareStrategy createInstance() {
-        if (instance == null) {
-            instance = new MainSquareStrategy();
-        }
-        return instance;
+        return MainSquareStrategySingleton.instance;
     }
 
     @Override

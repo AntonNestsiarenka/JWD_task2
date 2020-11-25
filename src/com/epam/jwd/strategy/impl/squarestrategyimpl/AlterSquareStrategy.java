@@ -3,7 +3,7 @@ package com.epam.jwd.strategy.impl.squarestrategyimpl;
 import com.epam.jwd.model.impl.closedfigureimpl.Square;
 import com.epam.jwd.strategy.impl.SquareStrategy;
 
-public class AlterSquareStrategy implements SquareStrategy {
+public final class AlterSquareStrategy implements SquareStrategy {
 
     private static AlterSquareStrategy instance;
 

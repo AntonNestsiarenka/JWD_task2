@@ -5,7 +5,7 @@ import com.epam.jwd.model.impl.NonClosedFigure;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NonClosedFigureFactoryImpl implements NonClosedFigureFactory {
+public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory {
 
     private final static Set<NonClosedFigure> CACHE = new HashSet<>();
     private static NonClosedFigureFactoryImpl instance;

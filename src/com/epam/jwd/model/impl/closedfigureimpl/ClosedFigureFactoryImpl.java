@@ -8,7 +8,7 @@ import com.epam.jwd.strategy.impl.TriangleStrategy;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClosedFigureFactoryImpl implements ClosedFigureFactory {
+public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
 
     private final static Set<ClosedFigure> CACHE = new HashSet<>();
     private static ClosedFigureFactoryImpl instance;

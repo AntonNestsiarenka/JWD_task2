@@ -9,7 +9,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.epam.jwd.logic" level="debug" additivity="true">
+        <Logger name="com.epam.jwd.projectfigure.logic" level="debug" additivity="true">
             <AppenderRef ref="FileAppender"/>
         </Logger>
         <Root level="debug">

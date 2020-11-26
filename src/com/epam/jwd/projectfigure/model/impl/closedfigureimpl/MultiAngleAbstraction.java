@@ -1,0 +1,11 @@
+package com.epam.jwd.projectfigure.model.impl.closedfigureimpl;
+
+import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
+import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
+
+public abstract class MultiAngleAbstraction extends ClosedFigure {
+
+    public MultiAngleAbstraction(ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy) {
+        super(closedFigurePropertiesStrategy);
+    }
+}

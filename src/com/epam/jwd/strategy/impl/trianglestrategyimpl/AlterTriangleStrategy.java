@@ -1,6 +1,6 @@
 package com.epam.jwd.strategy.impl.trianglestrategyimpl;
 
-import com.epam.jwd.model.impl.closedfigureimpl.Triangle;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.Triangle;
 import com.epam.jwd.strategy.impl.TriangleStrategy;
 
 public enum AlterTriangleStrategy implements TriangleStrategy {
@@ -23,5 +23,10 @@ public enum AlterTriangleStrategy implements TriangleStrategy {
         double distanceBC = distanceBetweenPoints(figure.getPointB(), figure.getPointC());
         double distanceCA = distanceBetweenPoints(figure.getPointC(), figure.getPointA());
         return distanceAB + distanceBC + distanceCA;
+    }
+
+    @Override
+    public String toString() {
+        return "AlterTriangleStrategy";
     }
 }

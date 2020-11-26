@@ -1,6 +1,6 @@
 package com.epam.jwd.strategy.impl.trianglestrategyimpl;
 
-import com.epam.jwd.model.impl.closedfigureimpl.Triangle;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.Triangle;
 import com.epam.jwd.strategy.impl.TriangleStrategy;
 
 public final class MainTriangleStrategy implements TriangleStrategy {
@@ -33,5 +33,10 @@ public final class MainTriangleStrategy implements TriangleStrategy {
         double distanceBC = distanceBetweenPoints(triangle.getPointB(), triangle.getPointC());
         double distanceCA = distanceBetweenPoints(triangle.getPointC(), triangle.getPointA());
         return distanceAB + distanceBC + distanceCA;
+    }
+
+    @Override
+    public String toString() {
+        return "MainTriangleStrategy";
     }
 }

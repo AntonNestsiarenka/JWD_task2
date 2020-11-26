@@ -1,10 +1,12 @@
-package com.epam.jwd.model.impl.closedfigureimpl;
+package com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl;
 
 import com.epam.jwd.model.impl.factory.ClosedFigureFactory;
 import com.epam.jwd.model.impl.ClosedFigure;
 import com.epam.jwd.model.impl.nonclosedfigureimpl.Point;
+import com.epam.jwd.strategy.impl.MultiAngleStrategy;
 import com.epam.jwd.strategy.impl.SquareStrategy;
 import com.epam.jwd.strategy.impl.TriangleStrategy;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,9 +38,7 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
                 }
             }
         }
-        Triangle newTriangle = new Triangle(pointA, pointB, pointC, closedFigurePropertiesStrategy);
-        CACHE.add(newTriangle);
-        return newTriangle;
+        return createNewTriangle(pointA, pointB, pointC, closedFigurePropertiesStrategy);
     }
 
     @Override
@@ -60,9 +60,7 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
                 }
             }
         }
-        Square newSquare = new Square(pointA, pointB, pointC, pointD, closedFigurePropertiesStrategy);
-        CACHE.add(newSquare);
-        return newSquare;
+        return createNewSquare(pointA, pointB, pointC, pointD, closedFigurePropertiesStrategy);
     }
 
     @Override
@@ -70,5 +68,26 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
         Square newSquare = new Square(pointA, pointB, pointC, pointD, closedFigurePropertiesStrategy);
         CACHE.add(newSquare);
         return newSquare;
+    }
+
+    @Override
+    public MultiAngle createMultiAngle(MultiAngleStrategy closedFigurePropertiesStrategy, Point...points) {
+        for (ClosedFigure figure : CACHE) {
+            if (figure instanceof MultiAngle) {
+                MultiAngle multiAngleFromCache = (MultiAngle) figure;
+                Point[] multiAnglePointsFromCache = multiAngleFromCache.getPoints();
+                if (Arrays.equals(multiAnglePointsFromCache, points) && closedFigurePropertiesStrategy.equals(multiAngleFromCache.getClosedFigurePropertiesStrategy())) {
+                    return multiAngleFromCache;
+                }
+            }
+        }
+        return createNewMultiAngle(closedFigurePropertiesStrategy, points);
+    }
+
+    @Override
+    public MultiAngle createNewMultiAngle(MultiAngleStrategy closedFigurePropertiesStrategy, Point...points) {
+        MultiAngle newMultiAngle = new MultiAngle(closedFigurePropertiesStrategy, points);
+        CACHE.add(newMultiAngle);
+        return newMultiAngle;
     }
 }

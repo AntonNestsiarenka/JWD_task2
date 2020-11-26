@@ -1,6 +1,6 @@
 package com.epam.jwd.strategy.impl.squarestrategyimpl;
 
-import com.epam.jwd.model.impl.closedfigureimpl.Square;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.Square;
 import com.epam.jwd.strategy.impl.SquareStrategy;
 
 public final class AlterSquareStrategy implements SquareStrategy {
@@ -32,5 +32,10 @@ public final class AlterSquareStrategy implements SquareStrategy {
         double distanceCD = distanceBetweenPoints(figure.getPointC(), figure.getPointD());
         double distanceDA = distanceBetweenPoints(figure.getPointD(), figure.getPointA());
         return distanceAB + distanceBC + distanceCD + distanceDA;
+    }
+
+    @Override
+    public String toString() {
+        return "AlterSquareStrategy";
     }
 }

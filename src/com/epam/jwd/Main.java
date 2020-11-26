@@ -1,18 +1,16 @@
 package com.epam.jwd;
 
-import com.epam.jwd.logic.ClosedFigureLogic;
-import com.epam.jwd.logic.LineLogic;
-import com.epam.jwd.logic.PointLogic;
-import com.epam.jwd.logic.SquareLogic;
-import com.epam.jwd.logic.TriangleLogic;
+import com.epam.jwd.logic.*;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.MultiAngle;
 import com.epam.jwd.model.impl.factory.ClosedFigureFactory;
 import com.epam.jwd.model.impl.factory.NonClosedFigureFactory;
-import com.epam.jwd.model.impl.closedfigureimpl.ClosedFigureFactoryImpl;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.ClosedFigureFactoryImpl;
 import com.epam.jwd.model.impl.nonclosedfigureimpl.NonClosedFigureFactoryImpl;
 import com.epam.jwd.model.impl.nonclosedfigureimpl.Line;
 import com.epam.jwd.model.impl.nonclosedfigureimpl.Point;
-import com.epam.jwd.model.impl.closedfigureimpl.Square;
-import com.epam.jwd.model.impl.closedfigureimpl.Triangle;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.Square;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.Triangle;
+import com.epam.jwd.strategy.impl.multianglestrategyimpl.MainMultiAngleStrategy;
 import com.epam.jwd.strategy.impl.squarestrategyimpl.MainSquareStrategy;
 import com.epam.jwd.strategy.impl.trianglestrategyimpl.AlterTriangleStrategy;
 import com.epam.jwd.strategy.impl.trianglestrategyimpl.MainTriangleStrategy;
@@ -23,6 +21,7 @@ public class Main {
     private final static LineLogic LINE_LOGIC = new LineLogic();
     private final static ClosedFigureLogic<Triangle> TRIANGLE_LOGIC = new TriangleLogic(POINT_LOGIC);
     private final static ClosedFigureLogic<Square> SQUARE_LOGIC = new SquareLogic(POINT_LOGIC);
+    private final static ClosedFigureLogic<MultiAngle> MULTI_ANGLE__LOGIC = new MultiAngleLogic(POINT_LOGIC);
     private final static ClosedFigureFactory CLOSED_FIGURE_FACTORY = ClosedFigureFactoryImpl.createInstance();
     private final static NonClosedFigureFactory NON_CLOSED_FIGURE_FACTORY = NonClosedFigureFactoryImpl.createInstance();
 
@@ -48,5 +47,15 @@ public class Main {
         LINE_LOGIC.printInfo(lines);
         TRIANGLE_LOGIC.printInfo(triangles);
         SQUARE_LOGIC.printInfo(squares);
+
+        Point[] pointsForMultiAngle1 = {NON_CLOSED_FIGURE_FACTORY.createPoint(-3.1, -2), NON_CLOSED_FIGURE_FACTORY.createPoint(0.12, 4.5),
+                NON_CLOSED_FIGURE_FACTORY.createPoint(1.85, 1.96), NON_CLOSED_FIGURE_FACTORY.createPoint(1.95, -3.4)};
+
+        Point[] pointsForMultiAngle2 = {NON_CLOSED_FIGURE_FACTORY.createPoint(-20, 20), NON_CLOSED_FIGURE_FACTORY.createPoint(0, 35.78),
+                NON_CLOSED_FIGURE_FACTORY.createPoint(15, 20), NON_CLOSED_FIGURE_FACTORY.createPoint(15, -20),
+                NON_CLOSED_FIGURE_FACTORY.createPoint(0, -35.78), NON_CLOSED_FIGURE_FACTORY.createPoint(-20, -20)};
+
+        MultiAngle multiAngle1 = CLOSED_FIGURE_FACTORY.createMultiAngle(MainMultiAngleStrategy.createInstance(), pointsForMultiAngle1);
+        MultiAngle multiAngle2 = CLOSED_FIGURE_FACTORY.createMultiAngle(MainMultiAngleStrategy.createInstance(), pointsForMultiAngle2);
     }
 }

@@ -1,7 +1,7 @@
 package com.epam.jwd.logic;
 
 import com.epam.jwd.exception.InvalidFigureData;
-import com.epam.jwd.model.impl.closedfigureimpl.Square;
+import com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl.Square;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

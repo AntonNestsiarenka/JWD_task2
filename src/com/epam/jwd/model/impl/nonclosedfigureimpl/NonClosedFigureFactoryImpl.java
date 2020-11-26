@@ -31,9 +31,7 @@ public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory 
                 }
             }
         }
-        Point newPoint = new Point(x, y);
-        CACHE.add(newPoint);
-        return newPoint;
+        return createNewPoint(x, y);
     }
 
     @Override
@@ -53,9 +51,7 @@ public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory 
                 }
             }
         }
-        Line newLine = new Line(pointA, pointB);
-        CACHE.add(newLine);
-        return newLine;
+        return createNewLine(pointA, pointB);
     }
 
     @Override

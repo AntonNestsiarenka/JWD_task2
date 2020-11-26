@@ -1,18 +1,49 @@
-package com.epam.jwd.model.impl.closedfigureimpl;
+package com.epam.jwd.model.impl.closedfigureimpl.multiangleabstractionimpl;
 
+import com.epam.jwd.model.impl.closedfigureimpl.MultiAngleAbstraction;
 import com.epam.jwd.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.model.impl.ClosedFigure;
 import com.epam.jwd.strategy.ClosedFigureStrategy;
 import com.epam.jwd.strategy.impl.SquareStrategy;
 import java.util.Objects;
 
-public class Square extends ClosedFigure {
+public class Square extends MultiAngleAbstraction {
 
+    private Point pointA;
+    private Point pointB;
+    private Point pointC;
     private Point pointD;
 
     Square(Point pointA, Point pointB, Point pointC, Point pointD, SquareStrategy closedFigurePropertiesStrategy) {
-        super(pointA, pointB, pointC, closedFigurePropertiesStrategy);
+        super(closedFigurePropertiesStrategy);
+        this.pointA = pointA;
+        this.pointB = pointB;
+        this.pointC = pointC;
         this.pointD = pointD;
+    }
+
+    public Point getPointA() {
+        return pointA;
+    }
+
+    public void setPointA(Point pointA) {
+        this.pointA = pointA;
+    }
+
+    public Point getPointB() {
+        return pointB;
+    }
+
+    public void setPointB(Point pointB) {
+        this.pointB = pointB;
+    }
+
+    public Point getPointC() {
+        return pointC;
+    }
+
+    public void setPointC(Point pointC) {
+        this.pointC = pointC;
     }
 
     public Point getPointD() {
@@ -41,20 +72,23 @@ public class Square extends ClosedFigure {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Square square = (Square) o;
-        return Objects.equals(pointD, square.pointD);
+        return Objects.equals(pointA, square.pointA) &&
+                Objects.equals(pointB, square.pointB) &&
+                Objects.equals(pointC, square.pointC) &&
+                Objects.equals(pointD, square.pointD);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), pointD);
+        return Objects.hash(super.hashCode(), pointA, pointB, pointC, pointD);
     }
 
     @Override
     public String toString() {
         return "Square{" +
-                "pointA=" + getPointA() +
-                ", pointB=" + getPointB() +
-                ", pointC=" + getPointC() +
+                "pointA=" + pointA +
+                ", pointB=" + pointB +
+                ", pointC=" + pointC +
                 ", pointD=" + pointD +
                 ", closedFigurePropertiesStrategy=" + getClosedFigurePropertiesStrategy() +
                 '}';

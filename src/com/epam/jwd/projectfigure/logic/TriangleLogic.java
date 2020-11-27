@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.logic;
 
-import com.epam.jwd.projectfigure.exception.InvalidFigureData;
+import com.epam.jwd.projectfigure.exception.InvalidFigureDataException;
 import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.Triangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,23 +29,23 @@ public class TriangleLogic extends ClosedFigureLogic<Triangle> {
     }
 
     @Override
-    public double figureArea(Triangle closedFigure) throws InvalidFigureData {
+    public double figureArea(Triangle closedFigure) throws InvalidFigureDataException {
         if (!isCorrectFigure(closedFigure)) {
-            throw new InvalidFigureData("Invalid data of figure. All points must be different.");
+            throw new InvalidFigureDataException("Invalid data of figure. All points must be different.");
         }
         if (!isFigureExist(closedFigure)) {
-            throw new InvalidFigureData(String.format("Invalid data of figure. Figure is not a %s.", closedFigure.getClass().getSimpleName()));
+            throw new InvalidFigureDataException(String.format("Invalid data of figure. Figure is not a %s.", closedFigure.getClass().getSimpleName()));
         }
         return closedFigure.getClosedFigurePropertiesStrategy().figureArea(closedFigure);
     }
 
     @Override
-    public double figurePerimeter(Triangle closedFigure) throws InvalidFigureData {
+    public double figurePerimeter(Triangle closedFigure) throws InvalidFigureDataException {
         if (!isCorrectFigure(closedFigure)) {
-            throw new InvalidFigureData("Invalid data of figure. All points must be different.");
+            throw new InvalidFigureDataException("Invalid data of figure. All points must be different.");
         }
         if (!isFigureExist(closedFigure)) {
-            throw new InvalidFigureData(String.format("Invalid data of figure. Figure is not a %s.", closedFigure.getClass().getSimpleName()));
+            throw new InvalidFigureDataException(String.format("Invalid data of figure. Figure is not a %s.", closedFigure.getClass().getSimpleName()));
         }
         return closedFigure.getClosedFigurePropertiesStrategy().figurePerimeter(closedFigure);
     }

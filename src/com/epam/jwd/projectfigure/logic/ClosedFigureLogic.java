@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.logic;
 
-import com.epam.jwd.projectfigure.exception.InvalidFigureData;
+import com.epam.jwd.projectfigure.exception.InvalidFigureDataException;
 import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
 
 public abstract class ClosedFigureLogic<T extends ClosedFigure> {
@@ -17,7 +17,7 @@ public abstract class ClosedFigureLogic<T extends ClosedFigure> {
 
     public abstract boolean isCorrectFigure(T closedFigure);
     public abstract boolean isFigureExist(T closedFigure);
-    public abstract double figureArea(T closedFigure) throws InvalidFigureData;
-    public abstract double figurePerimeter(T closedFigure) throws InvalidFigureData;
+    public abstract double figureArea(T closedFigure) throws InvalidFigureDataException;
+    public abstract double figurePerimeter(T closedFigure) throws InvalidFigureDataException;
     public abstract void printInfo(T[] closedFigures);
 }

@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.strategy.impl.squarestrategyimpl;
 
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.Square;
+import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.projectfigure.strategy.impl.SquareStrategy;
 
 public final class AlterSquareStrategy implements SquareStrategy {
@@ -19,18 +19,25 @@ public final class AlterSquareStrategy implements SquareStrategy {
     }
 
     @Override
-    public double figureArea(Square figure) {
-        double distanceAB = distanceBetweenPoints(figure.getPointA(), figure.getPointB());
-        double distanceBC = distanceBetweenPoints(figure.getPointB(), figure.getPointC());
+    public double figureArea(Point[] points) {
+        Point pointA = points[0];
+        Point pointB = points[1];
+        Point pointC = points[2];
+        double distanceAB = pointLogic.distanceBetweenPoints(pointA, pointB);
+        double distanceBC = pointLogic.distanceBetweenPoints(pointB, pointC);
         return distanceAB * distanceBC;
     }
 
     @Override
-    public double figurePerimeter(Square figure) {
-        double distanceAB = distanceBetweenPoints(figure.getPointA(), figure.getPointB());
-        double distanceBC = distanceBetweenPoints(figure.getPointB(), figure.getPointC());
-        double distanceCD = distanceBetweenPoints(figure.getPointC(), figure.getPointD());
-        double distanceDA = distanceBetweenPoints(figure.getPointD(), figure.getPointA());
+    public double figurePerimeter(Point[] points) {
+        Point pointA = points[0];
+        Point pointB = points[1];
+        Point pointC = points[2];
+        Point pointD = points[3];
+        double distanceAB = pointLogic.distanceBetweenPoints(pointA, pointB);
+        double distanceBC = pointLogic.distanceBetweenPoints(pointB, pointC);
+        double distanceCD = pointLogic.distanceBetweenPoints(pointC, pointD);
+        double distanceDA = pointLogic.distanceBetweenPoints(pointD, pointA);
         return distanceAB + distanceBC + distanceCD + distanceDA;
     }
 

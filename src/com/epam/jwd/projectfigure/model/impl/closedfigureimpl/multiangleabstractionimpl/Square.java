@@ -2,17 +2,16 @@ package com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstrac
 
 import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.MultiAngleAbstraction;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.SquareStrategy;
 import java.util.Objects;
 
 public class Square extends MultiAngleAbstraction {
 
-    private Point pointA;
-    private Point pointB;
-    private Point pointC;
-    private Point pointD;
+    private final Point pointA;
+    private final Point pointB;
+    private final Point pointC;
+    private final Point pointD;
 
     Square(Point pointA, Point pointB, Point pointC, Point pointD, SquareStrategy closedFigurePropertiesStrategy) {
         super(closedFigurePropertiesStrategy);
@@ -26,44 +25,32 @@ public class Square extends MultiAngleAbstraction {
         return pointA;
     }
 
-    public void setPointA(Point pointA) {
-        this.pointA = pointA;
-    }
-
     public Point getPointB() {
         return pointB;
-    }
-
-    public void setPointB(Point pointB) {
-        this.pointB = pointB;
     }
 
     public Point getPointC() {
         return pointC;
     }
 
-    public void setPointC(Point pointC) {
-        this.pointC = pointC;
-    }
-
     public Point getPointD() {
         return pointD;
     }
 
-    public void setPointD(Point pointD) {
-        this.pointD = pointD;
-    }
+//    public void setClosedFigurePropertiesStrategy(SquareStrategy closedFigurePropertiesStrategy) {
+//        super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
+//    }
 
     @Override
-    public ClosedFigureStrategy<Square> getClosedFigurePropertiesStrategy() {
-        return (ClosedFigureStrategy<Square>) super.getClosedFigurePropertiesStrategy();
-    }
-
-    @Override
-    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy) {
+    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
         if (closedFigurePropertiesStrategy instanceof SquareStrategy) {
             super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
         }
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return new Point[] {pointA, pointB, pointC, pointD};
     }
 
     @Override

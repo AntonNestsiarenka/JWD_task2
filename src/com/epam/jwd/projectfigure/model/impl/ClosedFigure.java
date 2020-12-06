@@ -6,17 +6,25 @@ import java.util.Objects;
 
 public abstract class ClosedFigure extends Figure {
 
-    private ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy;
+    private ClosedFigureStrategy closedFigurePropertiesStrategy;
 
-    public ClosedFigure(ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy) {
+    public ClosedFigure(ClosedFigureStrategy closedFigurePropertiesStrategy) {
         this.closedFigurePropertiesStrategy = closedFigurePropertiesStrategy;
     }
 
-    public ClosedFigureStrategy<? extends ClosedFigure> getClosedFigurePropertiesStrategy() {
+    public ClosedFigureStrategy getClosedFigurePropertiesStrategy() {
         return closedFigurePropertiesStrategy;
     }
 
-    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy) {
+    /*
+       I don’t know how to keep the setter for polymorphism to work, or leave the setter in the implementation,
+       but polymorphism will not work.
+     */
+//    protected void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
+//        this.closedFigurePropertiesStrategy = closedFigurePropertiesStrategy;
+//    }
+
+    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
         this.closedFigurePropertiesStrategy = closedFigurePropertiesStrategy;
     }
 

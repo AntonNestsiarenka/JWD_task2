@@ -1,18 +1,12 @@
 package com.epam.jwd.projectfigure.strategy;
 
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
+import com.epam.jwd.projectfigure.logic.PointLogic;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 
-public interface ClosedFigureStrategy<T extends ClosedFigure> {
+public interface ClosedFigureStrategy {
 
-    default double distanceBetweenPoints(Point point1, Point point2)
-    {
-        double deltaX = point1.getX() - point2.getX();
-        double deltaY = point1.getY() - point2.getY();
-        return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-    }
+    PointLogic pointLogic = PointLogic.createInstance();
 
-    double figureArea(T figure);
-    double figurePerimeter(T figure);
-
+    double figureArea(Point[] points);
+    double figurePerimeter(Point[] points);
 }

@@ -1,5 +1,7 @@
 package com.epam.jwd.projectfigure.model.impl;
 
-public abstract class NonClosedFigure {
+import com.epam.jwd.projectfigure.model.Figure;
+
+public abstract class NonClosedFigure extends Figure {
 
 }

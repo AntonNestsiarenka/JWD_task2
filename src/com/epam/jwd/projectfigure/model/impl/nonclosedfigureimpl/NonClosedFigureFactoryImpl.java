@@ -1,13 +1,18 @@
 package com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl;
 
+import com.epam.jwd.projectfigure.exception.FigureException;
 import com.epam.jwd.projectfigure.model.impl.factory.NonClosedFigureFactory;
 import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
+import com.epam.jwd.projectfigure.service.NonClosedFigurePostProcessor;
+import com.epam.jwd.projectfigure.service.nonclosedfigurepostprocessorimpl.NonClosedFigureExistencePostProcessor;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory {
 
     private final static Set<NonClosedFigure> CACHE = new HashSet<>();
+    private final static NonClosedFigurePostProcessor NON_CLOSED_FIGURE_POST_PROCESSOR = new NonClosedFigureExistencePostProcessor();
     private static NonClosedFigureFactoryImpl instance;
 
     private NonClosedFigureFactoryImpl() {
@@ -42,11 +47,12 @@ public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory 
     }
 
     @Override
-    public Line createLine(Point pointA, Point pointB) {
+    public NonClosedFigure createLine(Point pointA, Point pointB) throws FigureException {
+        Point[] inputData = new Point[] {pointA, pointB};
         for (NonClosedFigure figure : CACHE) {
             if (figure instanceof Line) {
                 Line lineFromCache = (Line) figure;
-                if (lineFromCache.getPointA().equals(pointA) && lineFromCache.getPointB().equals(pointB)) {
+                if (Arrays.equals(lineFromCache.getPoints(), inputData)) {
                     return lineFromCache;
                 }
             }
@@ -55,8 +61,8 @@ public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory 
     }
 
     @Override
-    public Line createNewLine(Point pointA, Point pointB) {
-        Line newLine = new Line(pointA, pointB);
+    public NonClosedFigure createNewLine(Point pointA, Point pointB) throws FigureException {
+        NonClosedFigure newLine = NON_CLOSED_FIGURE_POST_PROCESSOR.process(new Line(pointA, pointB));
         CACHE.add(newLine);
         return newLine;
     }

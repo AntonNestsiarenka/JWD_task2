@@ -2,16 +2,15 @@ package com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstrac
 
 import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.MultiAngleAbstraction;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.TriangleStrategy;
 import java.util.Objects;
 
 public class Triangle extends MultiAngleAbstraction {
 
-    private Point pointA;
-    private Point pointB;
-    private Point pointC;
+    private final Point pointA;
+    private final Point pointB;
+    private final Point pointC;
 
     Triangle(Point pointA, Point pointB, Point pointC, TriangleStrategy closedFigurePropertiesStrategy) {
         super(closedFigurePropertiesStrategy);
@@ -24,36 +23,28 @@ public class Triangle extends MultiAngleAbstraction {
         return pointA;
     }
 
-    public void setPointA(Point pointA) {
-        this.pointA = pointA;
-    }
-
     public Point getPointB() {
         return pointB;
-    }
-
-    public void setPointB(Point pointB) {
-        this.pointB = pointB;
     }
 
     public Point getPointC() {
         return pointC;
     }
 
-    public void setPointC(Point pointC) {
-        this.pointC = pointC;
-    }
+//    public void setClosedFigurePropertiesStrategy(TriangleStrategy closedFigurePropertiesStrategy) {
+//        super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
+//    }
 
     @Override
-    public ClosedFigureStrategy<Triangle> getClosedFigurePropertiesStrategy() {
-        return (ClosedFigureStrategy<Triangle>) super.getClosedFigurePropertiesStrategy();
-    }
-
-    @Override
-    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy) {
+    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
         if (closedFigurePropertiesStrategy instanceof TriangleStrategy) {
             super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
         }
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return new Point[] {pointA, pointB, pointC};
     }
 
     @Override

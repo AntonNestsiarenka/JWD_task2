@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.strategy.impl.trianglestrategyimpl;
 
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.Triangle;
+import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.projectfigure.strategy.impl.TriangleStrategy;
 
 public final class MainTriangleStrategy implements TriangleStrategy {
@@ -19,19 +19,25 @@ public final class MainTriangleStrategy implements TriangleStrategy {
     }
 
     @Override
-    public double figureArea(Triangle triangle) {
-        double distanceAB = distanceBetweenPoints(triangle.getPointA(), triangle.getPointB());
-        double distanceBC = distanceBetweenPoints(triangle.getPointB(), triangle.getPointC());
-        double distanceCA = distanceBetweenPoints(triangle.getPointC(), triangle.getPointA());
+    public double figureArea(Point[] points) {
+        Point pointA = points[0];
+        Point pointB = points[1];
+        Point pointC = points[2];
+        double distanceAB = pointLogic.distanceBetweenPoints(pointA, pointB);
+        double distanceBC = pointLogic.distanceBetweenPoints(pointB, pointC);
+        double distanceCA = pointLogic.distanceBetweenPoints(pointC, pointA);
         double halfPerimeter = (distanceAB + distanceBC + distanceCA) / 2;
         return Math.sqrt(halfPerimeter * (halfPerimeter - distanceAB) * (halfPerimeter - distanceBC) * (halfPerimeter - distanceCA));
     }
 
     @Override
-    public double figurePerimeter(Triangle triangle) {
-        double distanceAB = distanceBetweenPoints(triangle.getPointA(), triangle.getPointB());
-        double distanceBC = distanceBetweenPoints(triangle.getPointB(), triangle.getPointC());
-        double distanceCA = distanceBetweenPoints(triangle.getPointC(), triangle.getPointA());
+    public double figurePerimeter(Point[] points) {
+        Point pointA = points[0];
+        Point pointB = points[1];
+        Point pointC = points[2];
+        double distanceAB = pointLogic.distanceBetweenPoints(pointA, pointB);
+        double distanceBC = pointLogic.distanceBetweenPoints(pointB, pointC);
+        double distanceCA = pointLogic.distanceBetweenPoints(pointC, pointA);
         return distanceAB + distanceBC + distanceCA;
     }
 

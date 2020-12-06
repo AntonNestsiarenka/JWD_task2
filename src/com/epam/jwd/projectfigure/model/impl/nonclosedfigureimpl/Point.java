@@ -5,11 +5,12 @@ import java.util.Objects;
 
 public class Point extends NonClosedFigure {
 
-    private double x;
-    private double y;
+    private final double x;
+    private final double y;
 
     Point() {
-
+        x = 0;
+        y = 0;
     }
 
     Point(double x, double y) {
@@ -21,16 +22,13 @@ public class Point extends NonClosedFigure {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    @Override
+    public Point[] getPoints() {
+        return new Point[] {this};
     }
 
     @Override

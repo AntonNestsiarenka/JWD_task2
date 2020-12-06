@@ -1,6 +1,5 @@
 package com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl;
 
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
 import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.MultiAngleAbstraction;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
@@ -16,20 +15,20 @@ public class MultiAngle extends MultiAngleAbstraction {
         this.points = points;
     }
 
-    public Point[] getPoints() {
-        return points;
-    }
+//    public void setClosedFigurePropertiesStrategy(MultiAngleStrategy closedFigurePropertiesStrategy) {
+//        super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
+//    }
 
     @Override
-    public ClosedFigureStrategy<MultiAngle> getClosedFigurePropertiesStrategy() {
-        return (ClosedFigureStrategy<MultiAngle>) super.getClosedFigurePropertiesStrategy();
-    }
-
-    @Override
-    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy<? extends ClosedFigure> closedFigurePropertiesStrategy) {
+    public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
         if (closedFigurePropertiesStrategy instanceof MultiAngleStrategy) {
             super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
         }
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return points;
     }
 
     @Override

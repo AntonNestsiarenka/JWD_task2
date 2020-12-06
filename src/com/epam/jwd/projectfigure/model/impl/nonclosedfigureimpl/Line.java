@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class Line extends NonClosedFigure {
 
-    private Point pointA;
-    private Point pointB;
+    private final Point pointA;
+    private final Point pointB;
 
     Line(Point pointA, Point pointB) {
         this.pointA = pointA;
@@ -17,16 +17,13 @@ public class Line extends NonClosedFigure {
         return pointA;
     }
 
-    public void setPointA(Point pointA) {
-        this.pointA = pointA;
-    }
-
     public Point getPointB() {
         return pointB;
     }
 
-    public void setPointB(Point pointB) {
-        this.pointB = pointB;
+    @Override
+    public Point[] getPoints() {
+        return new Point[] {pointA, pointB};
     }
 
     @Override

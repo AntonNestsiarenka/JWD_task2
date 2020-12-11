@@ -1,4 +1,4 @@
-package com.epam.jwd.projectfigure.model.impl.factory;
+package com.epam.jwd.projectfigure.factory;
 
 import com.epam.jwd.projectfigure.exception.FigureException;
 import com.epam.jwd.projectfigure.model.impl.ClosedFigure;

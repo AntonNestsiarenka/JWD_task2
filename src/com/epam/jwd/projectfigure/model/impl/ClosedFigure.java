@@ -16,14 +16,6 @@ public abstract class ClosedFigure extends Figure {
         return closedFigurePropertiesStrategy;
     }
 
-    /*
-       I don’t know how to keep the setter for polymorphism to work, or leave the setter in the implementation,
-       but polymorphism will not work.
-     */
-//    protected void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
-//        this.closedFigurePropertiesStrategy = closedFigurePropertiesStrategy;
-//    }
-
     public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {
         this.closedFigurePropertiesStrategy = closedFigurePropertiesStrategy;
     }

@@ -1,29 +1,19 @@
 package com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl;
 
 import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
-import java.util.Objects;
+import java.util.Arrays;
 
 public class Line extends NonClosedFigure {
 
-    private final Point pointA;
-    private final Point pointB;
+    private final Point[] points;
 
-    Line(Point pointA, Point pointB) {
-        this.pointA = pointA;
-        this.pointB = pointB;
-    }
-
-    public Point getPointA() {
-        return pointA;
-    }
-
-    public Point getPointB() {
-        return pointB;
+    Line(Point...points) {
+        this.points = points;
     }
 
     @Override
     public Point[] getPoints() {
-        return new Point[] {pointA, pointB};
+        return points;
     }
 
     @Override
@@ -31,20 +21,18 @@ public class Line extends NonClosedFigure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Line line = (Line) o;
-        return Objects.equals(pointA, line.pointA) &&
-                Objects.equals(pointB, line.pointB);
+        return Arrays.equals(points, line.points);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pointA, pointB);
+        return Arrays.hashCode(points);
     }
 
     @Override
     public String toString() {
         return "Line{" +
-                "pointA=" + pointA +
-                ", pointB=" + pointB +
+                "points=" + Arrays.toString(points) +
                 '}';
     }
 }

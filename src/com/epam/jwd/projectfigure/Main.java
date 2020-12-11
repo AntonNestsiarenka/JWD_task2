@@ -6,16 +6,12 @@ import com.epam.jwd.projectfigure.logic.NonClosedFigureLogic;
 import com.epam.jwd.projectfigure.logic.PointLogic;
 import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
 import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
+import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.ApplicationContext;
 import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.MultiAngle;
-import com.epam.jwd.projectfigure.model.impl.factory.ClosedFigureFactory;
+import com.epam.jwd.projectfigure.factory.ClosedFigureFactory;
 import com.epam.jwd.projectfigure.model.impl.factory.NonClosedFigureFactory;
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.ClosedFigureFactoryImpl;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.NonClosedFigureFactoryImpl;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
-import com.epam.jwd.projectfigure.strategy.impl.multianglestrategyimpl.MainMultiAngleStrategy;
-import com.epam.jwd.projectfigure.strategy.impl.squarestrategyimpl.MainSquareStrategy;
-import com.epam.jwd.projectfigure.strategy.impl.trianglestrategyimpl.AlterTriangleStrategy;
-import com.epam.jwd.projectfigure.strategy.impl.trianglestrategyimpl.MainTriangleStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,7 +21,7 @@ public class Main {
     private final static PointLogic POINT_LOGIC = PointLogic.createInstance();
     private final static NonClosedFigureLogic NON_CLOSED_FIGURE_LOGIC = NonClosedFigureLogic.createInstance();
     private final static ClosedFigureLogic CLOSED_FIGURE_LOGIC = ClosedFigureLogic.createInstance();
-    private final static ClosedFigureFactory CLOSED_FIGURE_FACTORY = ClosedFigureFactoryImpl.createInstance();
+    private final static ClosedFigureFactory CLOSED_FIGURE_FACTORY = ApplicationContext.INSTANCE.createClosedFigureFactory();
     private final static NonClosedFigureFactory NON_CLOSED_FIGURE_FACTORY = NonClosedFigureFactoryImpl.createInstance();
 
     public static void main(String[] args) {
@@ -42,21 +38,19 @@ public class Main {
 
         ClosedFigure[] triangles = new ClosedFigure[0];
         try {
-            triangles = new ClosedFigure[]{CLOSED_FIGURE_FACTORY.createTriangle(NON_CLOSED_FIGURE_FACTORY.createPoint(0, 0),
-                    NON_CLOSED_FIGURE_FACTORY.createPoint(1.5, -2.59), NON_CLOSED_FIGURE_FACTORY.createPoint(3.45, 1.28),
-                    MainTriangleStrategy.createInstance()),
-                    CLOSED_FIGURE_FACTORY.createTriangle(NON_CLOSED_FIGURE_FACTORY.createPoint(-3.12, 1.5),
-                            NON_CLOSED_FIGURE_FACTORY.createPoint(0, 4.45), NON_CLOSED_FIGURE_FACTORY.createPoint(-6.15, -2.03),
-                            AlterTriangleStrategy.INSTANCE)};
+            triangles = new ClosedFigure[]{CLOSED_FIGURE_FACTORY.createClosedFigure("Triangle", NON_CLOSED_FIGURE_FACTORY.createPoint(0, 0),
+                    NON_CLOSED_FIGURE_FACTORY.createPoint(1.5, -2.59), NON_CLOSED_FIGURE_FACTORY.createPoint(3.45, 1.28)),
+                    CLOSED_FIGURE_FACTORY.createClosedFigure("Triangle", NON_CLOSED_FIGURE_FACTORY.createPoint(-3.12, 1.5),
+                            NON_CLOSED_FIGURE_FACTORY.createPoint(0, 4.45), NON_CLOSED_FIGURE_FACTORY.createPoint(-6.15, -2.03))};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
 
         ClosedFigure[] squares = new ClosedFigure[0];
         try {
-            squares = new ClosedFigure[]{CLOSED_FIGURE_FACTORY.createSquare(NON_CLOSED_FIGURE_FACTORY.createPoint(1.1, 2.36),
+            squares = new ClosedFigure[]{CLOSED_FIGURE_FACTORY.createClosedFigure("Square", NON_CLOSED_FIGURE_FACTORY.createPoint(1.1, 2.36),
                     NON_CLOSED_FIGURE_FACTORY.createPoint(-2.0, 3.45), NON_CLOSED_FIGURE_FACTORY.createPoint(-2.95, 3.35),
-                    NON_CLOSED_FIGURE_FACTORY.createPoint(4, 0), MainSquareStrategy.createInstance())};
+                    NON_CLOSED_FIGURE_FACTORY.createPoint(4, 0))};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
@@ -75,10 +69,17 @@ public class Main {
 
         ClosedFigure[] multiAngles = new MultiAngle[0];
         try {
-            multiAngles = new ClosedFigure[] {CLOSED_FIGURE_FACTORY.createMultiAngle(MainMultiAngleStrategy.createInstance(), pointsForMultiAngle1), CLOSED_FIGURE_FACTORY.createMultiAngle(MainMultiAngleStrategy.createInstance(), pointsForMultiAngle2)};
+            multiAngles = new ClosedFigure[] {CLOSED_FIGURE_FACTORY.createClosedFigure("MultiAngle", pointsForMultiAngle1), CLOSED_FIGURE_FACTORY.createClosedFigure("MultiAngle", pointsForMultiAngle2)};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
         CLOSED_FIGURE_LOGIC.printInfo(multiAngles);
+
+        try {
+            CLOSED_FIGURE_FACTORY.createClosedFigure("Triangle", pointsForMultiAngle2);
+        } catch (FigureException e) {
+            LOGGER.error(e.getMessage());
+        }
+
     }
 }

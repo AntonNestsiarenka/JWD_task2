@@ -6,12 +6,11 @@ import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
 import com.epam.jwd.projectfigure.service.NonClosedFigurePostProcessor;
 import com.epam.jwd.projectfigure.service.nonclosedfigurepostprocessorimpl.NonClosedFigureExistencePostProcessor;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory {
 
-    private final static Set<NonClosedFigure> CACHE = new HashSet<>();
+    private static NonClosedFigure[] cache = new NonClosedFigure[10];
+    private static int size = 0;
     private final static NonClosedFigurePostProcessor NON_CLOSED_FIGURE_POST_PROCESSOR = new NonClosedFigureExistencePostProcessor();
     private static NonClosedFigureFactoryImpl instance;
 
@@ -28,7 +27,7 @@ public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory 
 
     @Override
     public Point createPoint(double x, double y) {
-        for (NonClosedFigure figure : CACHE) {
+        for (NonClosedFigure figure : cache) {
             if (figure instanceof Point) {
                 Point pointFromCache = (Point) figure;
                 if (pointFromCache.getX() == x && pointFromCache.getY() == y) {
@@ -36,34 +35,36 @@ public final class NonClosedFigureFactoryImpl implements NonClosedFigureFactory 
                 }
             }
         }
-        return createNewPoint(x, y);
-    }
-
-    @Override
-    public Point createNewPoint(double x, double y) {
         Point newPoint = new Point(x, y);
-        CACHE.add(newPoint);
+        add(newPoint);
         return newPoint;
     }
 
     @Override
-    public NonClosedFigure createLine(Point pointA, Point pointB) throws FigureException {
-        Point[] inputData = new Point[] {pointA, pointB};
-        for (NonClosedFigure figure : CACHE) {
+    public NonClosedFigure createLine(Point...points) throws FigureException {
+        for (NonClosedFigure figure : cache) {
             if (figure instanceof Line) {
                 Line lineFromCache = (Line) figure;
-                if (Arrays.equals(lineFromCache.getPoints(), inputData)) {
+                if (Arrays.equals(lineFromCache.getPoints(), points)) {
                     return lineFromCache;
                 }
             }
         }
-        return createNewLine(pointA, pointB);
+        NonClosedFigure newLine = NON_CLOSED_FIGURE_POST_PROCESSOR.process(new Line(points));
+        add(newLine);
+        return newLine;
     }
 
-    @Override
-    public NonClosedFigure createNewLine(Point pointA, Point pointB) throws FigureException {
-        NonClosedFigure newLine = NON_CLOSED_FIGURE_POST_PROCESSOR.process(new Line(pointA, pointB));
-        CACHE.add(newLine);
-        return newLine;
+    private void add(NonClosedFigure object) {
+        if (size < cache.length) {
+            cache[size++] = object;
+        }
+        else {
+            resize();
+        }
+    }
+
+    private void resize() {
+        cache = Arrays.copyOf(cache, cache.length + (cache.length >> 1));
     }
 }

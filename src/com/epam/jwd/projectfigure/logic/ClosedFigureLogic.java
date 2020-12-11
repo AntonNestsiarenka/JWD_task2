@@ -38,19 +38,27 @@ public class ClosedFigureLogic {
     }
 
     public boolean isFigureExist(Triangle closedFigure) {
-        double lengthAB = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointA(), closedFigure.getPointB());
-        double lengthBC = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointB(), closedFigure.getPointC());
-        double lengthCA = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointC(), closedFigure.getPointA());
+        Point[] points = closedFigure.getPoints();
+        if (points.length != 3) {
+            return false;
+        }
+        double lengthAB = POINT_LOGIC.distanceBetweenPoints(points[0], points[1]);
+        double lengthBC = POINT_LOGIC.distanceBetweenPoints(points[1], points[2]);
+        double lengthCA = POINT_LOGIC.distanceBetweenPoints(points[2], points[0]);
         return lengthAB + lengthBC > lengthCA && lengthBC + lengthCA > lengthAB && lengthAB + lengthCA > lengthBC;
     }
 
     public boolean isFigureExist(Square closedFigure) {
-        double lengthAB = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointA(), closedFigure.getPointB());
-        double lengthBC = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointB(), closedFigure.getPointC());
-        double lengthCD = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointC(), closedFigure.getPointD());
-        double lengthDA = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointD(), closedFigure.getPointA());
-        double diagonalAC = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointA(), closedFigure.getPointC());
-        double diagonalBD = POINT_LOGIC.distanceBetweenPoints(closedFigure.getPointB(), closedFigure.getPointD());
+        Point[] points = closedFigure.getPoints();
+        if (points.length != 4) {
+            return false;
+        }
+        double lengthAB = POINT_LOGIC.distanceBetweenPoints(points[0], points[1]);
+        double lengthBC = POINT_LOGIC.distanceBetweenPoints(points[1], points[2]);
+        double lengthCD = POINT_LOGIC.distanceBetweenPoints(points[2], points[3]);
+        double lengthDA = POINT_LOGIC.distanceBetweenPoints(points[3], points[0]);
+        double diagonalAC = POINT_LOGIC.distanceBetweenPoints(points[0], points[2]);
+        double diagonalBD = POINT_LOGIC.distanceBetweenPoints(points[1], points[3]);
         return lengthAB == lengthBC && lengthAB == lengthCD && lengthAB == lengthDA && diagonalAC == diagonalBD;
     }
 

@@ -2,6 +2,7 @@ package com.epam.jwd.projectfigure.logic;
 
 import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Line;
+import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +23,11 @@ public class NonClosedFigureLogic {
     }
 
     public boolean isFigureNotExist(Line line) {
-        return line.getPointA().equals(line.getPointB());
+        Point[] points = line.getPoints();
+        if (points.length != 2) {
+            return true;
+        }
+        return points[0].equals(points[1]);
     }
 
     public void printInfo(NonClosedFigure[] nonClosedFigures) {

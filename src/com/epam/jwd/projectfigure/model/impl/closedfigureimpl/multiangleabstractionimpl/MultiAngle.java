@@ -4,20 +4,17 @@ import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.MultiAngleAbstract
 import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.MultiAngleStrategy;
+import com.epam.jwd.projectfigure.strategy.impl.multianglestrategyimpl.MainMultiAngleStrategy;
 import java.util.Arrays;
 
 public class MultiAngle extends MultiAngleAbstraction {
 
     private final Point[] points;
 
-    MultiAngle(MultiAngleStrategy closedFigurePropertiesStrategy, Point...points) {
-        super(closedFigurePropertiesStrategy);
+    MultiAngle(Point...points) {
+        super(MainMultiAngleStrategy.createInstance());
         this.points = points;
     }
-
-//    public void setClosedFigurePropertiesStrategy(MultiAngleStrategy closedFigurePropertiesStrategy) {
-//        super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
-//    }
 
     @Override
     public void setClosedFigurePropertiesStrategy(ClosedFigureStrategy closedFigurePropertiesStrategy) {

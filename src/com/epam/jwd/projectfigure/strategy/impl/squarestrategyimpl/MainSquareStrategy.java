@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.strategy.impl.squarestrategyimpl;
 
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
+import com.epam.jwd.projectfigure.model.impl.Point;
 import com.epam.jwd.projectfigure.strategy.impl.SquareStrategy;
 
 public final class MainSquareStrategy implements SquareStrategy {
@@ -19,16 +19,12 @@ public final class MainSquareStrategy implements SquareStrategy {
 
     @Override
     public double figureArea(Point[] points) {
-        Point pointA = points[0];
-        Point pointB = points[1];
-        return Math.pow(pointLogic.distanceBetweenPoints(pointA, pointB), 2);
+        return Math.pow(points[0].distanceBetweenPoints(points[1]), 2);
     }
 
     @Override
     public double figurePerimeter(Point[] points) {
-        Point pointA = points[0];
-        Point pointB = points[1];
-        return pointLogic.distanceBetweenPoints(pointA, pointB) * 4;
+        return points[0].distanceBetweenPoints(points[1]) * 4;
     }
 
     @Override

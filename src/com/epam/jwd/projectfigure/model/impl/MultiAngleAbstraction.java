@@ -1,4 +1,4 @@
-package com.epam.jwd.projectfigure.model.impl.closedfigureimpl;
+package com.epam.jwd.projectfigure.model.impl;
 
 import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;

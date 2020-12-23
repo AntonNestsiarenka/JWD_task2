@@ -20,6 +20,14 @@ public abstract class ClosedFigure extends Figure {
         this.closedFigurePropertiesStrategy = closedFigurePropertiesStrategy;
     }
 
+    public double figureArea() {
+        return closedFigurePropertiesStrategy.figureArea(getPoints());
+    }
+
+    public double figurePerimeter() {
+        return closedFigurePropertiesStrategy.figurePerimeter(getPoints());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

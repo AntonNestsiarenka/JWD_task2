@@ -1,6 +1,5 @@
-package com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl;
+package com.epam.jwd.projectfigure.model.impl;
 
-import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
 import java.util.Objects;
 
 public class Point extends NonClosedFigure {
@@ -8,12 +7,12 @@ public class Point extends NonClosedFigure {
     private final double x;
     private final double y;
 
-    Point() {
+    public Point() {
         x = 0;
         y = 0;
     }
 
-    Point(double x, double y) {
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -24,6 +23,17 @@ public class Point extends NonClosedFigure {
 
     public double getY() {
         return y;
+    }
+
+    public double distanceBetweenPoints(Point otherPoint) {
+        double deltaX = x - otherPoint.x;
+        double deltaY = y - otherPoint.y;
+        return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+    }
+
+    @Override
+    public boolean isFigureExist() {
+        return true;
     }
 
     @Override

@@ -1,31 +1,34 @@
-package com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl;
+package com.epam.jwd.projectfigure.model.impl;
 
 import com.epam.jwd.projectfigure.exception.FigureException;
-import com.epam.jwd.projectfigure.factory.ClosedFigureFactory;
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
+import com.epam.jwd.projectfigure.factory.FigureFactory;
+import com.epam.jwd.projectfigure.model.Figure;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
+public final class FigureFactoryImpl implements FigureFactory {
 
-    private static ClosedFigure[] cache = new ClosedFigure[10];
-    private static int size = 0;
-    private static ClosedFigureFactoryImpl instance;
+    private static final Set<Figure> CACHE = new HashSet<>();
+    private static FigureFactoryImpl instance;
 
-    private ClosedFigureFactoryImpl() {
+    private FigureFactoryImpl() {
 
     }
 
-    public static ClosedFigureFactoryImpl createInstance() {
+    public static FigureFactoryImpl createInstance() {
         if (instance == null) {
-            instance = new ClosedFigureFactoryImpl();
+            instance = new FigureFactoryImpl();
         }
         return instance;
     }
 
     @Override
-    public ClosedFigure createClosedFigure(String figureName, Point...points) throws FigureException{
+    public Figure createFigure(String figureName, Point... points) throws FigureException {
         switch (figureName) {
+            case ("Line"): {
+                return createLine(points);
+            }
             case ("Triangle"): {
                 return createTriangle(points);
             }
@@ -42,7 +45,7 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
     }
 
     private ClosedFigure createTriangle(Point...points) throws FigureException {
-        for (ClosedFigure figure : cache) {
+        for (Figure figure : CACHE) {
             if (figure instanceof Triangle) {
                 Triangle triangleFromCache = (Triangle) figure;
                 if (Arrays.equals(triangleFromCache.getPoints(), points)) {
@@ -51,12 +54,12 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
             }
         }
         ClosedFigure newTriangle = new Triangle(points);
-        add(newTriangle);
+        CACHE.add(newTriangle);
         return newTriangle;
     }
 
     private ClosedFigure createSquare(Point...points) throws FigureException {
-        for (ClosedFigure figure : cache) {
+        for (Figure figure : CACHE) {
             if (figure instanceof Square) {
                 Square squareFromCache = (Square) figure;
                 if (Arrays.equals(squareFromCache.getPoints(), points)) {
@@ -65,12 +68,12 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
             }
         }
         ClosedFigure newSquare = new Square(points);
-        add(newSquare);
+        CACHE.add(newSquare);
         return newSquare;
     }
 
     private ClosedFigure createMultiAngle(Point...points) throws FigureException {
-        for (ClosedFigure figure : cache) {
+        for (Figure figure : CACHE) {
             if (figure instanceof MultiAngle) {
                 MultiAngle multiAngleFromCache = (MultiAngle) figure;
                 Point[] multiAnglePointsFromCache = multiAngleFromCache.getPoints();
@@ -80,20 +83,21 @@ public final class ClosedFigureFactoryImpl implements ClosedFigureFactory {
             }
         }
         ClosedFigure newMultiAngle = new MultiAngle(points);
-        add(newMultiAngle);
+        CACHE.add(newMultiAngle);
         return newMultiAngle;
     }
 
-    private void add(ClosedFigure object) {
-        if (size < cache.length) {
-            cache[size++] = object;
+    private NonClosedFigure createLine(Point...points) throws FigureException {
+        for (Figure figure : CACHE) {
+            if (figure instanceof Line) {
+                Line lineFromCache = (Line) figure;
+                if (Arrays.equals(lineFromCache.getPoints(), points)) {
+                    return lineFromCache;
+                }
+            }
         }
-        else {
-            resize();
-        }
-    }
-
-    private void resize() {
-        cache = Arrays.copyOf(cache, cache.length + (cache.length >> 1));
+        NonClosedFigure newLine = new Line(points);
+        CACHE.add(newLine);
+        return newLine;
     }
 }

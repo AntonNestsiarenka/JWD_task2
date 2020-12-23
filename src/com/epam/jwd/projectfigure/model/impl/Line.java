@@ -1,6 +1,5 @@
-package com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl;
+package com.epam.jwd.projectfigure.model.impl;
 
-import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
 import java.util.Arrays;
 
 public class Line extends NonClosedFigure {
@@ -14,6 +13,14 @@ public class Line extends NonClosedFigure {
     @Override
     public Point[] getPoints() {
         return points;
+    }
+
+    @Override
+    public boolean isFigureExist() {
+        if (points.length != 2) {
+            return false;
+        }
+        return !points[0].equals(points[1]);
     }
 
     @Override

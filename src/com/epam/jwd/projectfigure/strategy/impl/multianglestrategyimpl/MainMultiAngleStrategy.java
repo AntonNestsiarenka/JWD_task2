@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.strategy.impl.multianglestrategyimpl;
 
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
+import com.epam.jwd.projectfigure.model.impl.Point;
 import com.epam.jwd.projectfigure.strategy.impl.MultiAngleStrategy;
 
 public final class MainMultiAngleStrategy implements MultiAngleStrategy {
@@ -31,7 +31,7 @@ public final class MainMultiAngleStrategy implements MultiAngleStrategy {
     public double figurePerimeter(Point[] points) {
         double perimeter = 0;
         for (int i = 0; i < points.length; i++) {
-            perimeter = perimeter + pointLogic.distanceBetweenPoints(points[i], points[(i + 1) % points.length]);
+            perimeter = perimeter + points[i].distanceBetweenPoints(points[(i + 1) % points.length]);
         }
         return perimeter;
     }

@@ -1,7 +1,5 @@
-package com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl;
+package com.epam.jwd.projectfigure.model.impl;
 
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.MultiAngleAbstraction;
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.TriangleStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.trianglestrategyimpl.MainTriangleStrategy;
@@ -26,6 +24,17 @@ public class Triangle extends MultiAngleAbstraction {
         if (closedFigurePropertiesStrategy instanceof TriangleStrategy) {
             super.setClosedFigurePropertiesStrategy(closedFigurePropertiesStrategy);
         }
+    }
+
+    @Override
+    public boolean isFigureExist() {
+        if (points.length != 3) {
+            return false;
+        }
+        double lengthAB = points[0].distanceBetweenPoints(points[1]);
+        double lengthBC = points[1].distanceBetweenPoints(points[2]);
+        double lengthCA = points[2].distanceBetweenPoints(points[0]);
+        return lengthAB + lengthBC > lengthCA && lengthBC + lengthCA > lengthAB && lengthAB + lengthCA > lengthBC;
     }
 
     @Override

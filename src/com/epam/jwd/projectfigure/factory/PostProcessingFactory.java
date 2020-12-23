@@ -1,39 +1,31 @@
 package com.epam.jwd.projectfigure.factory;
 
 import com.epam.jwd.projectfigure.exception.FigureException;
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.MultiAngle;
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.Square;
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.Triangle;
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
-import com.epam.jwd.projectfigure.service.ClosedFigurePostProcessor;
-import com.epam.jwd.projectfigure.service.closedfigurepostprocessorimpl.ClosedFigureExistencePostProcessor;
+import com.epam.jwd.projectfigure.model.Figure;
+import com.epam.jwd.projectfigure.model.impl.Point;
+import com.epam.jwd.projectfigure.service.FigurePostProcessor;
+import com.epam.jwd.projectfigure.service.impl.FigurePostProcessorImpl;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PostProcessingFactory extends ClosedFigureFactoryDecorator {
+public class PostProcessingFactory extends FigureFactoryDecorator {
 
-    private final ClosedFigurePostProcessor[] closedFigurePostProcessors = {new ClosedFigureExistencePostProcessor()};
+    private final List<FigurePostProcessor> figurePostProcessors = new ArrayList<>();
 
-    public PostProcessingFactory(ClosedFigureFactory closedFigureFactory) {
-        super(closedFigureFactory);
+    {
+        figurePostProcessors.add(new FigurePostProcessorImpl());
+    }
+
+    public PostProcessingFactory(FigureFactory figureFactory) {
+        super(figureFactory);
     }
 
     @Override
-    public ClosedFigure createClosedFigure(String figureName, Point... points) throws FigureException {
-        ClosedFigure closedFigure = super.createClosedFigure(figureName, points);
-        for (ClosedFigurePostProcessor closedFigurePostProcessor : closedFigurePostProcessors) {
-            if (closedFigure instanceof Triangle) {
-                Triangle triangle = (Triangle) closedFigure;
-                closedFigure = closedFigurePostProcessor.process(triangle);
-            }
-            else if (closedFigure instanceof Square) {
-                Square square = (Square) closedFigure;
-                closedFigure = closedFigurePostProcessor.process(square);
-            }
-            else if (closedFigure instanceof MultiAngle) {
-                MultiAngle multiAngle = (MultiAngle) closedFigure;
-                closedFigure = closedFigurePostProcessor.process(multiAngle);
-            }
+    public Figure createFigure(String figureName, Point... points) throws FigureException {
+        Figure figure = super.createFigure(figureName, points);
+        for (FigurePostProcessor figurePostProcessor : figurePostProcessors) {
+            figure = figurePostProcessor.process(figure);
         }
-        return closedFigure;
+        return figure;
     }
 }

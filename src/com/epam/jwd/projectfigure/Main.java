@@ -1,85 +1,73 @@
 package com.epam.jwd.projectfigure;
 
 import com.epam.jwd.projectfigure.exception.FigureException;
-import com.epam.jwd.projectfigure.logic.ClosedFigureLogic;
-import com.epam.jwd.projectfigure.logic.NonClosedFigureLogic;
-import com.epam.jwd.projectfigure.logic.PointLogic;
-import com.epam.jwd.projectfigure.model.impl.ClosedFigure;
-import com.epam.jwd.projectfigure.model.impl.NonClosedFigure;
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.ApplicationContext;
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl.MultiAngle;
-import com.epam.jwd.projectfigure.factory.ClosedFigureFactory;
-import com.epam.jwd.projectfigure.model.impl.factory.NonClosedFigureFactory;
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.NonClosedFigureFactoryImpl;
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
+import com.epam.jwd.projectfigure.factory.FigureFactory;
+import com.epam.jwd.projectfigure.logic.FigureLogic;
+import com.epam.jwd.projectfigure.model.Figure;
+import com.epam.jwd.projectfigure.model.impl.ApplicationContext;
+import com.epam.jwd.projectfigure.model.impl.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Main {
 
     private final static Logger LOGGER = LogManager.getLogger(Main.class);
-    private final static PointLogic POINT_LOGIC = PointLogic.createInstance();
-    private final static NonClosedFigureLogic NON_CLOSED_FIGURE_LOGIC = NonClosedFigureLogic.createInstance();
-    private final static ClosedFigureLogic CLOSED_FIGURE_LOGIC = ClosedFigureLogic.createInstance();
-    private final static ClosedFigureFactory CLOSED_FIGURE_FACTORY = ApplicationContext.INSTANCE.createClosedFigureFactory();
-    private final static NonClosedFigureFactory NON_CLOSED_FIGURE_FACTORY = NonClosedFigureFactoryImpl.createInstance();
+    private final static FigureLogic FIGURE_LOGIC = FigureLogic.createInstance();
+    private final static FigureFactory FIGURE_FACTORY = ApplicationContext.INSTANCE.createFigureFactory();
 
     public static void main(String[] args) {
-        Point[] points = {NON_CLOSED_FIGURE_FACTORY.createPoint(0, 0), NON_CLOSED_FIGURE_FACTORY.createPoint(0.56, 2.5),
-                NON_CLOSED_FIGURE_FACTORY.createPoint(1, 2.25), NON_CLOSED_FIGURE_FACTORY.createPoint(-2.14, -5.48)};
+        Point[] points = {new Point(0, 0), new Point(0.56, 2.5), new Point(1, 2.25), new Point(-2.14, -5.48)};
 
-        NonClosedFigure[] lines = new NonClosedFigure[0];
+        Figure[] lines = new Figure[0];
         try {
-            lines = new NonClosedFigure[]{NON_CLOSED_FIGURE_FACTORY.createLine(NON_CLOSED_FIGURE_FACTORY.createPoint(0, 0), NON_CLOSED_FIGURE_FACTORY.createPoint(-1.25, 4.78)),
-                    NON_CLOSED_FIGURE_FACTORY.createLine(NON_CLOSED_FIGURE_FACTORY.createPoint(-2.21, 0.2), NON_CLOSED_FIGURE_FACTORY.createPoint(6.25, -4.05))};
+            lines = new Figure[] {FIGURE_FACTORY.createFigure("Line", new Point(0, 0), new Point(-1.25, 4.78)),
+                    FIGURE_FACTORY.createFigure("Line", new Point(-2.21, 0.2), new Point(6.25, -4.05))};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
 
-        ClosedFigure[] triangles = new ClosedFigure[0];
+        Figure[] triangles = new Figure[0];
         try {
-            triangles = new ClosedFigure[]{CLOSED_FIGURE_FACTORY.createClosedFigure("Triangle", NON_CLOSED_FIGURE_FACTORY.createPoint(0, 0),
-                    NON_CLOSED_FIGURE_FACTORY.createPoint(1.5, -2.59), NON_CLOSED_FIGURE_FACTORY.createPoint(3.45, 1.28)),
-                    CLOSED_FIGURE_FACTORY.createClosedFigure("Triangle", NON_CLOSED_FIGURE_FACTORY.createPoint(-3.12, 1.5),
-                            NON_CLOSED_FIGURE_FACTORY.createPoint(0, 4.45), NON_CLOSED_FIGURE_FACTORY.createPoint(-6.15, -2.03))};
+            triangles = new Figure[] {FIGURE_FACTORY.createFigure("Triangle", new Point(0, 0),
+                    new Point(1.5, -2.59), new Point(3.45, 1.28)),
+                    FIGURE_FACTORY.createFigure("Triangle", new Point(-3.12, 1.5),
+                            new Point(0, 4.45), new Point(-6.15, -2.03))};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
 
-        ClosedFigure[] squares = new ClosedFigure[0];
+        Figure[] squares = new Figure[0];
         try {
-            squares = new ClosedFigure[]{CLOSED_FIGURE_FACTORY.createClosedFigure("Square", NON_CLOSED_FIGURE_FACTORY.createPoint(1.1, 2.36),
-                    NON_CLOSED_FIGURE_FACTORY.createPoint(-2.0, 3.45), NON_CLOSED_FIGURE_FACTORY.createPoint(-2.95, 3.35),
-                    NON_CLOSED_FIGURE_FACTORY.createPoint(4, 0))};
+            squares = new Figure[] {FIGURE_FACTORY.createFigure("Square", new Point(1.1, 2.36),
+                    new Point(-2.0, 3.45), new Point(-2.95, 3.35), new Point(4, 0))};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
 
-        NON_CLOSED_FIGURE_LOGIC.printInfo(points);
-        NON_CLOSED_FIGURE_LOGIC.printInfo(lines);
-        CLOSED_FIGURE_LOGIC.printInfo(triangles);
-        CLOSED_FIGURE_LOGIC.printInfo(squares);
+        FIGURE_LOGIC.printInfo(points);
+        FIGURE_LOGIC.printInfo(lines);
+        FIGURE_LOGIC.printInfo(triangles);
+        FIGURE_LOGIC.printInfo(squares);
 
-        Point[] pointsForMultiAngle1 = {NON_CLOSED_FIGURE_FACTORY.createPoint(-3.1, -2), NON_CLOSED_FIGURE_FACTORY.createPoint(0.12, 4.5),
-                NON_CLOSED_FIGURE_FACTORY.createPoint(1.85, 1.96), NON_CLOSED_FIGURE_FACTORY.createPoint(1.95, -3.4)};
+        Point[] pointsForMultiAngle1 = {new Point(-3.1, -2), new Point(0.12, 4.5), new Point(1.85, 1.96),
+                new Point(1.95, -3.4)};
 
-        Point[] pointsForMultiAngle2 = {NON_CLOSED_FIGURE_FACTORY.createPoint(-20, 20), NON_CLOSED_FIGURE_FACTORY.createPoint(0, 35.78),
-                NON_CLOSED_FIGURE_FACTORY.createPoint(15, 20), NON_CLOSED_FIGURE_FACTORY.createPoint(-15, 30),
-                NON_CLOSED_FIGURE_FACTORY.createPoint(0, -35.78), NON_CLOSED_FIGURE_FACTORY.createPoint(-20, -20)};
+        Point[] pointsForMultiAngle2 = {new Point(-20, 20), new Point(0, 35.78), new Point(15, 20),
+                new Point(-15, 30), new Point(0, -35.78), new Point(-20, -20)};
 
-        ClosedFigure[] multiAngles = new MultiAngle[0];
+        Figure[] multiAngles = new Figure[0];
         try {
-            multiAngles = new ClosedFigure[] {CLOSED_FIGURE_FACTORY.createClosedFigure("MultiAngle", pointsForMultiAngle1), CLOSED_FIGURE_FACTORY.createClosedFigure("MultiAngle", pointsForMultiAngle2)};
+            multiAngles = new Figure[] {FIGURE_FACTORY.createFigure("MultiAngle", pointsForMultiAngle1),
+                    FIGURE_FACTORY.createFigure("MultiAngle", pointsForMultiAngle2)};
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
-        CLOSED_FIGURE_LOGIC.printInfo(multiAngles);
+        FIGURE_LOGIC.printInfo(multiAngles);
 
         try {
-            CLOSED_FIGURE_FACTORY.createClosedFigure("Triangle", pointsForMultiAngle2);
+            FIGURE_FACTORY.createFigure("Triangle", pointsForMultiAngle2);
         } catch (FigureException e) {
             LOGGER.error(e.getMessage());
         }
-
     }
 }

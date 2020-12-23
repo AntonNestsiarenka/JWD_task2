@@ -1,6 +1,6 @@
 package com.epam.jwd.projectfigure.strategy.impl.squarestrategyimpl;
 
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
+import com.epam.jwd.projectfigure.model.impl.Point;
 import com.epam.jwd.projectfigure.strategy.impl.SquareStrategy;
 
 public final class AlterSquareStrategy implements SquareStrategy {
@@ -20,24 +20,17 @@ public final class AlterSquareStrategy implements SquareStrategy {
 
     @Override
     public double figureArea(Point[] points) {
-        Point pointA = points[0];
-        Point pointB = points[1];
-        Point pointC = points[2];
-        double distanceAB = pointLogic.distanceBetweenPoints(pointA, pointB);
-        double distanceBC = pointLogic.distanceBetweenPoints(pointB, pointC);
+        double distanceAB = points[0].distanceBetweenPoints(points[1]);
+        double distanceBC = points[1].distanceBetweenPoints(points[2]);
         return distanceAB * distanceBC;
     }
 
     @Override
     public double figurePerimeter(Point[] points) {
-        Point pointA = points[0];
-        Point pointB = points[1];
-        Point pointC = points[2];
-        Point pointD = points[3];
-        double distanceAB = pointLogic.distanceBetweenPoints(pointA, pointB);
-        double distanceBC = pointLogic.distanceBetweenPoints(pointB, pointC);
-        double distanceCD = pointLogic.distanceBetweenPoints(pointC, pointD);
-        double distanceDA = pointLogic.distanceBetweenPoints(pointD, pointA);
+        double distanceAB = points[0].distanceBetweenPoints(points[1]);
+        double distanceBC = points[1].distanceBetweenPoints(points[2]);
+        double distanceCD = points[2].distanceBetweenPoints(points[3]);
+        double distanceDA = points[3].distanceBetweenPoints(points[0]);
         return distanceAB + distanceBC + distanceCD + distanceDA;
     }
 

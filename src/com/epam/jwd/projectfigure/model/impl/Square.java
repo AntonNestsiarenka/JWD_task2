@@ -1,7 +1,5 @@
-package com.epam.jwd.projectfigure.model.impl.closedfigureimpl.multiangleabstractionimpl;
+package com.epam.jwd.projectfigure.model.impl;
 
-import com.epam.jwd.projectfigure.model.impl.closedfigureimpl.MultiAngleAbstraction;
-import com.epam.jwd.projectfigure.model.impl.nonclosedfigureimpl.Point;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.SquareStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.squarestrategyimpl.MainSquareStrategy;
@@ -26,6 +24,20 @@ public class Square extends MultiAngleAbstraction {
     @Override
     public Point[] getPoints() {
         return points;
+    }
+
+    @Override
+    public boolean isFigureExist() {
+        if (points.length != 4) {
+            return false;
+        }
+        double lengthAB = points[0].distanceBetweenPoints(points[1]);
+        double lengthBC = points[1].distanceBetweenPoints(points[2]);
+        double lengthCD = points[2].distanceBetweenPoints(points[3]);
+        double lengthDA = points[3].distanceBetweenPoints(points[0]);
+        double diagonalAC = points[0].distanceBetweenPoints(points[2]);
+        double diagonalBD = points[1].distanceBetweenPoints(points[3]);
+        return lengthAB == lengthBC && lengthAB == lengthCD && lengthAB == lengthDA && diagonalAC == diagonalBD;
     }
 
     @Override

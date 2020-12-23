@@ -1,6 +1,7 @@
 package com.epam.jwd.projectfigure.factory;
 
 import com.epam.jwd.projectfigure.exception.FigureException;
+import com.epam.jwd.projectfigure.model.Color;
 import com.epam.jwd.projectfigure.model.Figure;
 import com.epam.jwd.projectfigure.model.impl.Point;
 import com.epam.jwd.projectfigure.service.FigurePostProcessor;
@@ -21,8 +22,8 @@ public class PostProcessingFactory extends FigureFactoryDecorator {
     }
 
     @Override
-    public Figure createFigure(String figureName, Point... points) throws FigureException {
-        Figure figure = super.createFigure(figureName, points);
+    public Figure createFigure(String figureName, Color color, Point... points) throws FigureException {
+        Figure figure = super.createFigure(figureName, color, points);
         for (FigurePostProcessor figurePostProcessor : figurePostProcessors) {
             figure = figurePostProcessor.process(figure);
         }

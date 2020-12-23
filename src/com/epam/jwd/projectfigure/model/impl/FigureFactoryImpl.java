@@ -2,6 +2,7 @@ package com.epam.jwd.projectfigure.model.impl;
 
 import com.epam.jwd.projectfigure.exception.FigureException;
 import com.epam.jwd.projectfigure.factory.FigureFactory;
+import com.epam.jwd.projectfigure.model.Color;
 import com.epam.jwd.projectfigure.model.Figure;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,19 +25,19 @@ public final class FigureFactoryImpl implements FigureFactory {
     }
 
     @Override
-    public Figure createFigure(String figureName, Point... points) throws FigureException {
+    public Figure createFigure(String figureName, Color color, Point... points) {
         switch (figureName) {
             case ("Line"): {
-                return createLine(points);
+                return createLine(color, points);
             }
             case ("Triangle"): {
-                return createTriangle(points);
+                return createTriangle(color, points);
             }
             case ("Square"): {
-                return createSquare(points);
+                return createSquare(color, points);
             }
             case ("MultiAngle"): {
-                return createMultiAngle(points);
+                return createMultiAngle(color, points);
             }
             default:{
                 throw new IllegalArgumentException("Invalid figure name.");
@@ -44,7 +45,7 @@ public final class FigureFactoryImpl implements FigureFactory {
         }
     }
 
-    private ClosedFigure createTriangle(Point...points) throws FigureException {
+    private ClosedFigure createTriangle(Color color, Point...points) {
         for (Figure figure : CACHE) {
             if (figure instanceof Triangle) {
                 Triangle triangleFromCache = (Triangle) figure;
@@ -53,12 +54,12 @@ public final class FigureFactoryImpl implements FigureFactory {
                 }
             }
         }
-        ClosedFigure newTriangle = new Triangle(points);
+        ClosedFigure newTriangle = new Triangle(color, points);
         CACHE.add(newTriangle);
         return newTriangle;
     }
 
-    private ClosedFigure createSquare(Point...points) throws FigureException {
+    private ClosedFigure createSquare(Color color, Point...points) {
         for (Figure figure : CACHE) {
             if (figure instanceof Square) {
                 Square squareFromCache = (Square) figure;
@@ -67,12 +68,12 @@ public final class FigureFactoryImpl implements FigureFactory {
                 }
             }
         }
-        ClosedFigure newSquare = new Square(points);
+        ClosedFigure newSquare = new Square(color, points);
         CACHE.add(newSquare);
         return newSquare;
     }
 
-    private ClosedFigure createMultiAngle(Point...points) throws FigureException {
+    private ClosedFigure createMultiAngle(Color color, Point...points) {
         for (Figure figure : CACHE) {
             if (figure instanceof MultiAngle) {
                 MultiAngle multiAngleFromCache = (MultiAngle) figure;
@@ -82,12 +83,12 @@ public final class FigureFactoryImpl implements FigureFactory {
                 }
             }
         }
-        ClosedFigure newMultiAngle = new MultiAngle(points);
+        ClosedFigure newMultiAngle = new MultiAngle(color, points);
         CACHE.add(newMultiAngle);
         return newMultiAngle;
     }
 
-    private NonClosedFigure createLine(Point...points) throws FigureException {
+    private NonClosedFigure createLine(Color color, Point...points) {
         for (Figure figure : CACHE) {
             if (figure instanceof Line) {
                 Line lineFromCache = (Line) figure;
@@ -96,7 +97,7 @@ public final class FigureFactoryImpl implements FigureFactory {
                 }
             }
         }
-        NonClosedFigure newLine = new Line(points);
+        NonClosedFigure newLine = new Line(color, points);
         CACHE.add(newLine);
         return newLine;
     }

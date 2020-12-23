@@ -2,7 +2,7 @@ package com.epam.jwd.projectfigure.model.impl;
 
 import java.util.Objects;
 
-public class Point extends NonClosedFigure {
+public class Point {
 
     private final double x;
     private final double y;
@@ -29,16 +29,6 @@ public class Point extends NonClosedFigure {
         double deltaX = x - otherPoint.x;
         double deltaY = y - otherPoint.y;
         return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-    }
-
-    @Override
-    public boolean isFigureExist() {
-        return true;
-    }
-
-    @Override
-    public Point[] getPoints() {
-        return new Point[] {this};
     }
 
     @Override

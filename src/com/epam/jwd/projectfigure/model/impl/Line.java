@@ -1,12 +1,17 @@
 package com.epam.jwd.projectfigure.model.impl;
 
+import com.epam.jwd.projectfigure.model.Color;
+
 import java.util.Arrays;
 
 public class Line extends NonClosedFigure {
 
+    private static Long idUnique = 0L;
+
     private final Point[] points;
 
-    Line(Point...points) {
+    Line(Color color, Point...points) {
+        super(idUnique++, color);
         this.points = points;
     }
 
@@ -27,19 +32,24 @@ public class Line extends NonClosedFigure {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Line line = (Line) o;
         return Arrays.equals(points, line.points);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(points);
+        int result = super.hashCode();
+        result = 31 * result + Arrays.hashCode(points);
+        return result;
     }
 
     @Override
     public String toString() {
         return "Line{" +
-                "points=" + Arrays.toString(points) +
+                "id=" + getId() +
+                ", color=" + getColor().name() +
+                ", points=" + Arrays.toString(points) +
                 '}';
     }
 }

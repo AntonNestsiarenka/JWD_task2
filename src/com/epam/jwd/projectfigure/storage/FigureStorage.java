@@ -1,16 +1,16 @@
 package com.epam.jwd.projectfigure.storage;
 
 import com.epam.jwd.projectfigure.model.Figure;
-
 import java.util.List;
 import java.util.Optional;
 
-public interface FigureStorage<T extends Figure> {
+public interface FigureStorage {
 
-    Optional<T> findById(Long id);
-    List<T> findAll();
+    Optional<Figure> findById(Long id);
+    Optional<Figure> find(Figure figure);
+    List<Figure> findAll();
     void deleteById(Long id);
+    void delete(Figure figure);
     void deleteAll();
-    T save(T figure);
-    List<T> findBySpecification(Specification specification);
+    Figure save(Figure figure);
 }

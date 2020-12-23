@@ -1,5 +1,6 @@
 package com.epam.jwd.projectfigure.model.impl;
 
+import com.epam.jwd.projectfigure.model.Color;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.SquareStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.squarestrategyimpl.MainSquareStrategy;
@@ -7,10 +8,12 @@ import java.util.Arrays;
 
 public class Square extends MultiAngleAbstraction {
 
+    private static Long idUnique = 0L;
+
     private final Point[] points;
 
-    Square(Point...points) {
-        super(MainSquareStrategy.createInstance());
+    Square(Color color, Point...points) {
+        super(idUnique++, color, MainSquareStrategy.createInstance());
         this.points = points;
     }
 
@@ -59,7 +62,10 @@ public class Square extends MultiAngleAbstraction {
     @Override
     public String toString() {
         return "Square{" +
-                "points=" + Arrays.toString(points) +
+                "id=" + getId() +
+                ", color=" + getColor().name() +
+                ", points=" + Arrays.toString(points) +
+                ", strategy=" + getClosedFigurePropertiesStrategy() +
                 '}';
     }
 }

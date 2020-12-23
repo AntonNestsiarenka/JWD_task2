@@ -1,5 +1,6 @@
 package com.epam.jwd.projectfigure.model.impl;
 
+import com.epam.jwd.projectfigure.model.Color;
 import com.epam.jwd.projectfigure.strategy.ClosedFigureStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.TriangleStrategy;
 import com.epam.jwd.projectfigure.strategy.impl.trianglestrategyimpl.MainTriangleStrategy;
@@ -7,10 +8,12 @@ import java.util.Arrays;
 
 public class Triangle extends MultiAngleAbstraction {
 
+    private static Long idUnique = 0L;
+
     private final Point[] points;
 
-    Triangle(Point...points) {
-        super(MainTriangleStrategy.createInstance());
+    Triangle(Color color, Point...points) {
+        super(idUnique++, color, MainTriangleStrategy.createInstance());
         this.points = points;
     }
 
@@ -56,7 +59,10 @@ public class Triangle extends MultiAngleAbstraction {
     @Override
     public String toString() {
         return "Triangle{" +
-                "points=" + Arrays.toString(points) +
+                "id=" + getId() +
+                ", color=" + getColor().name() +
+                ", points=" + Arrays.toString(points) +
+                ", strategy=" + getClosedFigurePropertiesStrategy() +
                 '}';
     }
 }

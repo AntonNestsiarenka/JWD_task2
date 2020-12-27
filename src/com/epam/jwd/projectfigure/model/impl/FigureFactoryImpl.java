@@ -1,6 +1,5 @@
 package com.epam.jwd.projectfigure.model.impl;
 
-import com.epam.jwd.projectfigure.exception.FigureException;
 import com.epam.jwd.projectfigure.factory.FigureFactory;
 import com.epam.jwd.projectfigure.model.Color;
 import com.epam.jwd.projectfigure.model.Figure;
@@ -49,7 +48,7 @@ public final class FigureFactoryImpl implements FigureFactory {
         for (Figure figure : CACHE) {
             if (figure instanceof Triangle) {
                 Triangle triangleFromCache = (Triangle) figure;
-                if (Arrays.equals(triangleFromCache.getPoints(), points)) {
+                if (Arrays.equals(triangleFromCache.getPoints(), points) && triangleFromCache.getColor().equals(color)) {
                     return triangleFromCache;
                 }
             }
@@ -63,7 +62,7 @@ public final class FigureFactoryImpl implements FigureFactory {
         for (Figure figure : CACHE) {
             if (figure instanceof Square) {
                 Square squareFromCache = (Square) figure;
-                if (Arrays.equals(squareFromCache.getPoints(), points)) {
+                if (Arrays.equals(squareFromCache.getPoints(), points) && squareFromCache.getColor().equals(color)) {
                     return squareFromCache;
                 }
             }
@@ -78,7 +77,7 @@ public final class FigureFactoryImpl implements FigureFactory {
             if (figure instanceof MultiAngle) {
                 MultiAngle multiAngleFromCache = (MultiAngle) figure;
                 Point[] multiAnglePointsFromCache = multiAngleFromCache.getPoints();
-                if (Arrays.equals(multiAnglePointsFromCache, points)) {
+                if (Arrays.equals(multiAnglePointsFromCache, points) && multiAngleFromCache.getColor().equals(color)) {
                     return multiAngleFromCache;
                 }
             }
@@ -92,7 +91,7 @@ public final class FigureFactoryImpl implements FigureFactory {
         for (Figure figure : CACHE) {
             if (figure instanceof Line) {
                 Line lineFromCache = (Line) figure;
-                if (Arrays.equals(lineFromCache.getPoints(), points)) {
+                if (Arrays.equals(lineFromCache.getPoints(), points) && lineFromCache.getColor().equals(color)) {
                     return lineFromCache;
                 }
             }

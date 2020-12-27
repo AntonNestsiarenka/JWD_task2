@@ -1,7 +1,6 @@
 package com.epam.jwd.projectfigure.model.impl;
 
 import com.epam.jwd.projectfigure.model.Color;
-
 import java.util.Arrays;
 
 public class Line extends NonClosedFigure {

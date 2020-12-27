@@ -4,13 +4,13 @@ import com.epam.jwd.projectfigure.model.Figure;
 import java.util.List;
 import java.util.Optional;
 
-public interface FigureStorage {
+public interface FigureStorage<T extends Figure> {
 
-    Optional<Figure> findById(Long id);
-    Optional<Figure> find(Figure figure);
-    List<Figure> findAll();
+    Optional<T> findById(Long id);
+    Optional<T> find(T figure);
+    List<T> findAll();
     void deleteById(Long id);
-    void delete(Figure figure);
+    void delete(T figure);
     void deleteAll();
-    Figure save(Figure figure);
+    T save(T figure);
 }

@@ -7,12 +7,12 @@ import com.epam.jwd.projectfigure.model.impl.Point;
 import java.util.List;
 import java.util.Optional;
 
-public interface FigureCrud {
+public interface FigureCrud<T extends Figure> {
 
-    Figure create(String figureName, Color color, Point... points) throws FigureException;
-    List<Figure> multiCreate(int quantity, String figureName, Color color, Point... points) throws FigureException;
-    Optional<Figure> find(Figure figure);
-    Optional<Figure> findById(Long id);
-    Figure update(Figure figure);
-    void delete(Figure figure);
+    T create(Color color, Point... points) throws FigureException;
+    List<T> multiCreate(int quantity, Color color, Point... points) throws FigureException;
+    Optional<T> find(T figure);
+    Optional<T> findById(Long id);
+    T update(T figure);
+    void delete(T figure);
 }
